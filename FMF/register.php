@@ -3,15 +3,13 @@
    session_start();
     
    $message = "";
-   if(isset($_POST['submit'])) {
+   if(isset($_POST['submit']) && $_POST['g-recaptcha-response']!="") {
       //reCAPTCHA
       $secret = '6Lcd3jEUAAAAAGRmFMGmYPwyQZnST2vOY9E26gtt';
-      $response = $_POST['g-recaptcha-response'];
-      $remoteip = $_SERVER['REMOTE_ADDR'];
 
-      $url = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$response&remoteip=$remoteip");
-      $result = json_decode($url, TRUE);
-      if ($result['success'] == 1) {
+      $url = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+      $result = json_decode($url);
+      if ($result->success) {
       $myname = mysqli_real_escape_string($db,$_POST['name']);
       $mysurname = mysqli_real_escape_string($db,$_POST['surname']);
       $myemail = mysqli_real_escape_string($db,$_POST['email']);
