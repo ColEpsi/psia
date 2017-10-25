@@ -2,7 +2,7 @@
 include("config.php");
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_SESSION['submit'])) {
     $mytitle    = mysqli_real_escape_string($db, $_POST['title']);
     $myquestion = mysqli_real_escape_string($db, $_POST['question']);
     $myanswer   = mysqli_real_escape_string($db, $_POST['answer']);
