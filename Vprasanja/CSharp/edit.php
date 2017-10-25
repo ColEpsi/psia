@@ -4,7 +4,7 @@ session_start();
 
 $id = $_SESSION['session_id'];
 
-$content = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM data WHERE ID='$id'"));
+$content = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM data_csharp WHERE ID='$id'"));
 //echo "<script>console.log(".$id.");</script>";
 echo "<script>console.log(".$id.");</script>";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['verified'])) {
         $verified = 1;
     }
-    $sql = "UPDATE data SET question='$myquestion', answer='$myanswer', verified='$verified', tag='$mykeywords' WHERE ID='$id'";
+    $sql = "UPDATE data_csharp SET question='$myquestion', answer='$myanswer', verified='$verified', tag='$mykeywords' WHERE ID='$id'";
     mysqli_query($db, $sql) or die(mysqli_error($db));
     header("location:admin.php");
     

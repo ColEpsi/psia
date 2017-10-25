@@ -11,6 +11,7 @@
   $permission_level = $user['permission_level'];
   $credentials = "$name $surname";
   $_SESSION['credentials'] = $credentials;
+  $_SESSION['ID'] = $user['ID'];
  
 
 ?>
@@ -129,7 +130,7 @@
 						
 
 						$command = "";
-						$sql = mysqli_query($db, "SELECT DISTINCT tag FROM data WHERE verified = 1");
+						$sql = mysqli_query($db, "SELECT DISTINCT tag FROM data_csharp WHERE verified = 1");
 
 						$tags = array();
 						
@@ -161,10 +162,10 @@
 										
 										$lowercase = strtolower($tag);	
 										if(!strcmp($tag, "Nepreverjene objave")){
-											$sql = mysqli_query($db, "SELECT * FROM data WHERE verified = 0");
+											$sql = mysqli_query($db, "SELECT * FROM data_csharp WHERE verified = 0");
 										}
 										else{
-											$sql = mysqli_query($db, "SELECT * FROM data WHERE tag LIKE '%{$tag}%' AND verified = 1");
+											$sql = mysqli_query($db, "SELECT * FROM data_csharp WHERE tag LIKE '%{$tag}%' AND verified = 1");
 										}	
 
 										while($row = mysqli_fetch_assoc($sql)){

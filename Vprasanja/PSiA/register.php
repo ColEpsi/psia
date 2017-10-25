@@ -15,11 +15,15 @@
       $myemail = mysqli_real_escape_string($db,$_POST['email']);
       $myusername = mysqli_real_escape_string($db,$_POST['username']);
       $mypassword = mysqli_real_escape_string($db,$_POST['password']);
+      $mypassword_confirm = mysqli_real_escape_string($db,$_POST['password_confirm']);  
      
      if(strlen($myname) == 0 || strlen($myusername) == 0 || strlen($myemail) == 0 ||
         strlen($myusername) == 0 || strlen($mypassword) == 0){
        $message = "Vnesti morate vsa polja!";
      }
+      else if ($mypassword != $mypassword_confirm){
+        $message = "Gesli se ne ujemata";
+      }  
      else{
       $_SESSION['username'] = $myusername;
       $_SESSION['password'] = $mypassword;
@@ -110,9 +114,15 @@
    	<div  class="form-group">
 		<label for="name" class="col-sm-5 control-label">Geslo</label>
 		<div class="col-sm-3">
-			<input type="text" class="form-control" id="password" name="password" placeholder="" value="">
+			<input type="password" class="form-control" id="password" name="password" placeholder="" value="">
 		</div>
-	</div> 
+	</div>
+    <div  class="form-group">
+		<label for="name" class="col-sm-5 control-label">Potrditev Gesla</label>
+		<div class="col-sm-3">
+			<input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="" value="">
+		</div>
+	</div>  
       <div>
         <div class="g-recaptcha" style="position: absolute; left: 50%; margin-left: -125px;" data-sitekey="6Lcd3jEUAAAAAAXzL4QGQvYSiEcWzkrzz7P2_4m9"></div>  
       </div>

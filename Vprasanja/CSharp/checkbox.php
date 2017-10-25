@@ -24,7 +24,7 @@ if($_SESSION['verified'] == 0){
 							<div class="listItem">';
 										$verified = $_SESSION['verified'];
 										$lowercase = strtolower($tag);	
-										$sql = mysqli_query($db, "SELECT * FROM data WHERE tag = '$tag' AND verified = '$verified'");
+										$sql = mysqli_query($db, "SELECT * FROM data_csharp WHERE tag = '$tag' AND verified = '$verified'");
 
 										while($row = mysqli_fetch_assoc($sql)){
 											$title = $row["question"];
@@ -70,7 +70,7 @@ else{
 							<div class="listItem">';
 										$verified = $_SESSION['verified'];
 										$lowercase = strtolower($tag);	
-										$sql = mysqli_query($db, "SELECT * FROM data WHERE tag = '$tag' AND verified = '$verified'");
+										$sql = mysqli_query($db, "SELECT * FROM data_csharp WHERE tag = '$tag' AND verified = '$verified'");
 
 										while($row = mysqli_fetch_assoc($sql)){
 											$title = $row["question"];

@@ -4,7 +4,7 @@ session_start();
 
 $id = $_SESSION['session_id'];
 
-$content = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM data WHERE ID='$id'"));
+$content = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM data_csharp WHERE ID='$id'"));
 //echo "<script>console.log(".$id.");</script>";
 echo "<script>console.log(".$id.");</script>";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $myanswer   = mysqli_real_escape_string($db, $_POST['answer']);
     $mykeywords = mysqli_real_escape_string($db, $_POST['keywords']);
 
-    $sql = "UPDATE data SET question='$myquestion', answer='$myanswer', verified='0', tag='$mykeywords' WHERE ID='$id'";
+    $sql = "UPDATE data_csharp SET question='$myquestion', answer='$myanswer', verified='0', tag='$mykeywords' WHERE ID='$id'";
     mysqli_query($db, $sql) or die(mysqli_error($db));
     header("location:logged_in.php");
     

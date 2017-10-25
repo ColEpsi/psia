@@ -5,7 +5,7 @@ include("config.php");
 session_start();
 
 $id    = $_GET['id'];
-$query = "SELECT name, type, size, content FROM upload WHERE id = '$id'";
+$query = "SELECT name, type, size, content FROM upload_csharp WHERE id = '$id'";
          
 
 $result = mysqli_query($db, $query) or die('Error, query failed');

@@ -4,7 +4,7 @@ session_start();
 
 $id = intval($_GET['q']);
 $_SESSION['session_id'] = $id;
-$query = "SELECT * FROM data WHERE ID = '$id'"; //expecting one row
+$query = "SELECT * FROM data_csharp WHERE ID = '$id'"; //expecting one row
 $result = mysqli_query($db, $query);
 $message = mysqli_fetch_assoc($result);
 $question = $message['question'];
@@ -29,7 +29,7 @@ $credentials = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM users WHERE I
 $name = $credentials['name'];
 $surname = $credentials['surname'];
 $file = "";
-$sql = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM upload WHERE id = '$upload_ID'"));
+$sql = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM upload_csharp WHERE id = '$upload_ID'"));
 $file_size = $sql['size'];
 if($file_size > 0){
 	$file = '<a href="download.php?id='.$upload_ID.'>">'.$sql['name'].'</a>';

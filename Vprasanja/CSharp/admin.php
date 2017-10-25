@@ -23,7 +23,7 @@
   $credentials = "$name $surname";
   
   $verified_html = "";
-  $verified_query = mysqli_query($db, "SELECT * FROM data WHERE verified=0");
+  $verified_query = mysqli_query($db, "SELECT * FROM data_csharp WHERE verified=0");
 
   while($row = mysqli_fetch_assoc($verified_query)){
       $contributor_ID = $row['contributor_ID'];

@@ -42,11 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     
     
-    $email  = $_SESSION['username'];
-    $userID = mysqli_fetch_assoc(mysqli_query($db, "SELECT ID FROM users WHERE email='$email'"));
-    $userID = $userID['ID'];
+    $userID = $_SESSION['ID'];
     echo "$userID";
-    $sql = "INSERT INTO data (contributor_ID, question, answer, tag, upload_ID) VALUES ('$userID', '$mytitle', '$return_string','$mykeywords', '$upload_ID')";
+    $sql = "INSERT INTO data_csharp (contributor_ID, question, answer, tag, upload_ID) VALUES ('$userID', '$mytitle', '$return_string','$mykeywords', '$upload_ID')";
     
     mysqli_query($db, $sql) or die(mysqli_error($db));
     header("location:logged_in.php");
