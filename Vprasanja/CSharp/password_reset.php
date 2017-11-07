@@ -3,7 +3,7 @@
    session_start();
     
    $message = "";
-   if($_SERVER["REQUEST_METHOD"] == "POST") {
+   if(isset($_SESSION['submit'])) {
       $myemail = mysqli_real_escape_string($db,$_POST['email']);
      
      if(strlen($myemail) == 0){
