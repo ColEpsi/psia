@@ -7,18 +7,18 @@
    $error = "";
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       $myusername = mysqli_real_escape_string($db,$_POST['uname']);
-      $mypassword = mysqli_real_escape_string($db,$_POST['pass']);     
+      $mypassword = mysqli_real_escape_string($db,$_POST['pass']);
       $sql = "SELECT * FROM users WHERE (email = '$myusername' or username = '$myusername') and password = '$mypassword'";
       $result = mysqli_query($db,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);  
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       $count = mysqli_num_rows($result);
       $_SESSION['username'] = $myusername;
       $_SESSION['password'] = $mypassword;
-      
+
       if($count == 1) {
         header("location: logged_in.php");
       }else {
-        $error = "Vaše uporabniško ime ali geslo je nepravilno!"; 
+        $error = "Vaše uporabniško ime ali geslo je nepravilno!";
       }
    }
 ?>
@@ -39,7 +39,7 @@
     		  xhttp.onreadystatechange = function() {
         	if (xhttp.readyState == 4 && xhttp.status == 200) {
             document.getElementById("contents").innerHTML=this.responseText;
-            
+
         	}
      		};
       	xhttp.open("GET", "checkbox.php", true);
@@ -64,9 +64,9 @@
     	}
 
 
-		$(document).ready(function(){ 
+		$(document).ready(function(){
 
-		
+
 
 
     	$('.link').click(function(){
@@ -123,7 +123,7 @@
 										<div class="form-group">
 											 <button type="submit" name="submit" class="btn btn-primary btn-block">Prijava</button>
 										</div>
-										
+
 								 </form>
 							</div>
 							<div class="bottom text-center">
@@ -149,12 +149,12 @@
 			<h2>Kazalo</h2>
 			<ul>
 				<div class="contents" id="contents">
-					<?php 
+					<?php
 						$command = "";
 						$sql = mysqli_query($db, "SELECT DISTINCT tag FROM data WHERE verified = 1");
 
 						$tags = array();
-						
+
 						while($row = mysqli_fetch_assoc($sql)){
 							$field = str_replace(", ", ",", $row['tag']);
 
@@ -165,10 +165,10 @@
 						//print_r($tags);
 						$tags = array_unique($tags);
 						//print_r($tags);
-						
-					
+
+
 								foreach ($tags as $tag) {
-												
+
 											$id = str_replace(" ", "", $tag);
 
 											$tempCommand = '<li data-target="#'.$id.'" data-toggle="collapse"><div class="dropdown" >
@@ -178,16 +178,16 @@
 					<div class="collapse" id="'.$id.'">
 						<div class="verticalLine">
 							<ul>
-							
+
 							<div class="listItem">';
-										
-										$lowercase = strtolower($tag);	
+
+										$lowercase = strtolower($tag);
 										if(!strcmp($tag, "Nepreverjene objave")){
 											$sql = mysqli_query($db, "SELECT * FROM data WHERE verified = 0");
 										}
 										else{
 											$sql = mysqli_query($db, "SELECT * FROM data WHERE tag LIKE '%{$tag}%' AND verified = 1");
-										}	
+										}
 
 										while($row = mysqli_fetch_assoc($sql)){
 											$title = $row["question"];
@@ -201,22 +201,22 @@
 					</div>
 				</li>';
 
-		
-							
+
+
 											$command = $command.''.$tempCommand;
 										}
 
 										echo $command;
 
 					?>
-					
+
 			</ul>
 		</div>
 		<div class="col-md-8">
 			<div id="display"></div>
 		</div>
 		</div>
-		
+
 	</div><!-- Content will go here -->
 </body>
 </html>

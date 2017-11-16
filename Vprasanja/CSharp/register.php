@@ -1,7 +1,7 @@
 <?php
    include("config.php");
    session_start();
-    
+
    $message = "";
    if(isset($_POST['submit']) && $_POST['g-recaptcha-response']!="") {
       //reCAPTCHA
@@ -15,38 +15,42 @@
       $myemail = mysqli_real_escape_string($db,$_POST['email']);
       $myusername = mysqli_real_escape_string($db,$_POST['username']);
       $mypassword = mysqli_real_escape_string($db,$_POST['password']);
-     
+      $mypassword_confirm = mysqli_real_escape_string($db,$_POST['password_confirm']);
+
      if(strlen($myname) == 0 || strlen($myusername) == 0 || strlen($myemail) == 0 ||
         strlen($myusername) == 0 || strlen($mypassword) == 0){
        $message = "Vnesti morate vsa polja!";
      }
+      else if ($mypassword != $mypassword_confirm){
+        $message = "Gesli se ne ujemata";
+      }
      else{
       $_SESSION['username'] = $myusername;
       $_SESSION['password'] = $mypassword;
-       
+
       $sql_username = "SELECT * FROM users WHERE username = '$myusername'";
       $sql_email = "SELECT * FROM users WHERE email = '$myemail'";
-     
+
       $result_username = mysqli_query($db, $sql_username);
       $result_email = mysqli_query($db, $sql_email);
-     
-      if(mysqli_num_rows($result_username) >= 1){ 
+
+      if(mysqli_num_rows($result_username) >= 1){
          $message = "Uporabniško ime že obstaja";
       }
       else if(mysqli_num_rows($result_email) >= 1){
         $message = "Uporabnik s tem E-Mail naslovom že obstaja";
       }
       else {
-        $sql = "INSERT INTO users (name, surname, email, username, password) VALUES 
+        $sql = "INSERT INTO users (name, surname, email, username, password) VALUES
         ('$myname', '$mysurname', '$myemail','$myusername','$mypassword')";
-     
+
         if ($db->query($sql) === TRUE) {
           header("location: index.php");
         } else {
           $message = "Error: " . $sql . "<br>" . $db->error;
-        } 
+        }
       }
-      } 
+      }
      }
    }
 ?>
@@ -62,7 +66,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
 	</script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-	
+
 	<link href="main.css" rel="stylesheet" type="text/css">
 	<title>Programski jezik C#</title>
 </head>
@@ -71,12 +75,12 @@
 		<nav class="navbar fixed-top navbar-inverse">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="index.php">Začetna stran</a>
-				
+
 			</div>
 		</nav>
 		<div class="container-fluid" style="background-color: white">
 			    <div >
-    <h2 style="text-align:center">Prosimo vnesite vaše podatke:</h2> 
+    <h2 style="text-align:center">Prosimo vnesite vaše podatke:</h2>
     <br>
     <div style="text-align:center;color:red;font-style:oblique">
       <?php echo $message; ?>
@@ -94,7 +98,7 @@
 		<div class="col-sm-3">
 			<input type="text" class="form-control" id="surname" name="surname" placeholder="" value="">
 		</div>
-	</div>       
+	</div>
 	<div class="form-group">
 		<label for="email" class="col-sm-5 control-label">Email</label>
 		<div class="col-sm-3">
@@ -110,21 +114,27 @@
    	<div  class="form-group">
 		<label for="name" class="col-sm-5 control-label">Geslo</label>
 		<div class="col-sm-3">
-			<input type="text" class="form-control" id="password" name="password" placeholder="" value="">
+			<input type="password" class="form-control" id="password" name="password" placeholder="" value="">
 		</div>
-	</div> 
+	</div>
+    <div  class="form-group">
+		<label for="name" class="col-sm-5 control-label">Potrditev Gesla</label>
+		<div class="col-sm-3">
+			<input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="" value="">
+		</div>
+	</div>
       <div>
-        <div class="g-recaptcha" style="position: absolute; left: 50%; margin-left: -125px;" data-sitekey="6Lcd3jEUAAAAAAXzL4QGQvYSiEcWzkrzz7P2_4m9"></div>  
+        <div class="g-recaptcha" style="position: absolute; left: 50%; margin-left: -125px;" data-sitekey="6Lcd3jEUAAAAAAXzL4QGQvYSiEcWzkrzz7P2_4m9"></div>
       </div>
-            
+
       <br><br><br><br><br><br>
       <div style="text-align:center" class="button">
         <input type="submit" name="submit" class="btn btn-primary btn-lg" value="Registracija">
       </div>
-    </form>    
-    </div> 
+    </form>
+    </div>
 		</div>
-		
+
 	</div><!-- Content will go here -->
 </body>
 </html>
