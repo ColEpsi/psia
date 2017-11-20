@@ -2,7 +2,7 @@
 include("config.php");
 session_start();
 
-if (isset($_SESSION['submit'])) {
+if (isset($_POST['submit'])) {
     $mytitle    = mysqli_real_escape_string($db, $_POST['title']);
     $myquestion = mysqli_real_escape_string($db, $_POST['question']);
     $myanswer   = mysqli_real_escape_string($db, $_POST['answer']);
@@ -115,7 +115,7 @@ $credentials = $_SESSION['credentials'];
       <?php echo $message; ?>
     </div>
     <br>
-    <form class="form-horizontal" id="form-input" role="form" method="post" enctype="multipart/form-data" action="<?=$_SERVER['PHP_SELF'];?>">
+    <form class="form-horizontal" id="form-input" role="form" method="post" enctype="multipart/form-data" action="">:
 	<div class="form-group">
 	<div class="col-sm-12">
    			<label for="title">Naslov vprašanja <i>(slovenščina):</i></label>
