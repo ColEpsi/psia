@@ -3,7 +3,7 @@
    session_start();
 
    $message = "";
-   if(isset($_SESSION['submit'])) {
+   if(isset($_POST['submit'])) {
       $myemail = mysqli_real_escape_string($db,$_POST['email']);
 
      if(strlen($myemail) == 0){
@@ -76,7 +76,7 @@
       <?php echo $message; ?>
     </div>
     <br>
-    <form class="form-horizontal" role="form" method="post" action="">      
+    <form class="form-horizontal" role="form" method="post" action="">
 	<div class="form-group">
 		<label for="email" class="col-sm-5 control-label">Email</label>
 		<div class="col-sm-3">
