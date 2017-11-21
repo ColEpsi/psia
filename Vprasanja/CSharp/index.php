@@ -5,20 +5,28 @@
    //$_SESSION['name'] = 0;
    //$_SESSION['surname'] = 0;
    $error = "";
-   if($_SERVER["REQUEST_METHOD"] == "POST") {
+   if(isset($_POST['submit'])) {
       $myusername = mysqli_real_escape_string($db,$_POST['uname']);
-      $mypassword = mysqli_real_escape_string($db,$_POST['pass']);     
-      $sql = "SELECT * FROM users WHERE (email = '$myusername' or username = '$myusername') and password = '$mypassword'";
+      $mypassword = mysqli_real_escape_string($db,$_POST['pass']);
+      $sql = "SELECT * FROM users WHERE (email = '$myusername' or username = '$myusername')";
       $result = mysqli_query($db,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);  
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       $count = mysqli_num_rows($result);
       $_SESSION['username'] = $myusername;
-      $_SESSION['password'] = $mypassword;
-      
       if($count == 1) {
-        header("location: logged_in.php");
+        $sql = "SELECT * FROM users WHERE (email = '$myusername' or username = '$myusername') and password = '$mypassword'";
+        $result = mysqli_query($db,$sql);
+        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        $count = mysqli_num_rows($result);
+        $_SESSION['password'] = $mypassword;
+        if($count == 1) {
+          header("location: logged_in.php");
+        }
+        else {
+          $error = "Geslo je napačno!<br><br> <script> dropdown() </script>";
+        }
       }else {
-        $error = "Vaše uporabniško ime ali geslo je nepravilno!"; 
+        $error = "Uporabnik s tem Email naslovom ali uporabniškim imenom ne obstaja!<br><br> <script> dropdown() </script>";
       }
    }
 ?>
@@ -39,7 +47,7 @@
     		  xhttp.onreadystatechange = function() {
         	if (xhttp.readyState == 4 && xhttp.status == 200) {
             document.getElementById("contents").innerHTML=this.responseText;
-            
+
         	}
      		};
       	xhttp.open("GET", "checkbox.php", true);
@@ -64,11 +72,7 @@
     	}
 
 
-		$(document).ready(function(){ 
-
-		
-
-
+		$(document).ready(function(){
     	$('.link').click(function(){
     		var data_id = $(this).data('id');
     		if (window.XMLHttpRequest) {
@@ -87,6 +91,9 @@
 
    		}	);
 });
+function dropdown(){
+  $('#dropdown').addClass('open');
+}
 	</script>
 	<link href="main.css" rel="stylesheet" type="text/css">
 	<title>Programski jezik C#</title>
@@ -99,17 +106,16 @@
 					<li>
 						<a href="register.php"><span class="glyphicon glyphicon-user"></span> Registracija</a>
 					</li>
-					<li class="dropdown">
+					<li class="dropdown" id="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b><span class="glyphicon glyphicon-log-in"></span> Prijava</b> <span class="caret"></span></a>
 			<ul id="login-dp" class="dropdown-menu">
 				<li>
 					 <div class="row">
 							<div class="col-md-12">
-								 <form class="form" method="POST" action="" accept-charset="UTF-8" id="login-nav">
+								 <form class="form" method="POST" action="" accept-charset="UTF-8" id="login-nav" >
 								 		<div style="color:red">
             <?php echo $error?>
-            <br>
-            <br>
+
           </div>
 										<div class="form-group">
 											 <label class="sr-only" for="InputEmail">Email naslov</label>
@@ -121,9 +127,9 @@
                                              <div class="help-block text-right"><a href="password_reset.php">Pozabljeno geslo?</a></div>
 										</div>
 										<div class="form-group">
-											 <button type="submit" name="submit" class="btn btn-primary btn-block">Prijava</button>
+											 <button type="submit" name="submit" class="btn btn-primary btn-block" id="prijava">Prijava</button>
 										</div>
-										
+
 								 </form>
 							</div>
 							<div class="bottom text-center">
@@ -149,12 +155,12 @@
 			<h2>Kazalo</h2>
 			<ul>
 				<div class="contents" id="contents">
-					<?php 
+					<?php
 						$command = "";
 						$sql = mysqli_query($db, "SELECT DISTINCT tag FROM data_csharp WHERE verified = 1");
 
 						$tags = array();
-						
+
 						while($row = mysqli_fetch_assoc($sql)){
 							$field = str_replace(", ", ",", $row['tag']);
 
@@ -165,10 +171,10 @@
 						//print_r($tags);
 						$tags = array_unique($tags);
 						//print_r($tags);
-						
-					
+
+
 								foreach ($tags as $tag) {
-												
+
 											$id = str_replace(" ", "", $tag);
 
 											$tempCommand = '<li data-target="#'.$id.'" data-toggle="collapse"><div class="dropdown" >
@@ -178,16 +184,16 @@
 					<div class="collapse" id="'.$id.'">
 						<div class="verticalLine">
 							<ul>
-							
+
 							<div class="listItem">';
-										
-										$lowercase = strtolower($tag);	
+
+										$lowercase = strtolower($tag);
 										if(!strcmp($tag, "Nepreverjene objave")){
 											$sql = mysqli_query($db, "SELECT * FROM data_csharp WHERE verified = 0");
 										}
 										else{
 											$sql = mysqli_query($db, "SELECT * FROM data_csharp WHERE tag LIKE '%{$tag}%' AND verified = 1");
-										}	
+										}
 
 										while($row = mysqli_fetch_assoc($sql)){
 											$title = $row["question"];
@@ -201,22 +207,22 @@
 					</div>
 				</li>';
 
-		
-							
+
+
 											$command = $command.''.$tempCommand;
 										}
 
 										echo $command;
 
 					?>
-					
+
 			</ul>
 		</div>
 		<div class="col-md-8">
 			<div id="display"></div>
 		</div>
 		</div>
-		
+
 	</div><!-- Content will go here -->
 </body>
 </html>
