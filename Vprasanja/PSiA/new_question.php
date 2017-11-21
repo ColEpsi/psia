@@ -42,10 +42,7 @@ if (isset($_POST['submit'])) {
 
 
 
-    $email  = $_SESSION['username'];
-    $userID = mysqli_fetch_assoc(mysqli_query($db, "SELECT ID FROM users WHERE email='$email'"));
-    $userID = $userID['ID'];
-    echo "$userID";
+    $userID = $_SESSION['ID'];
     $sql = "INSERT INTO data (contributor_ID, question, answer, tag, upload_ID) VALUES ('$userID', '$mytitle', '$return_string','$mykeywords', '$upload_ID')";
 
     mysqli_query($db, $sql) or die(mysqli_error($db));
@@ -115,7 +112,7 @@ $credentials = $_SESSION['credentials'];
       <?php echo $message; ?>
     </div>
     <br>
-    <form class="form-horizontal" id="form-input" role="form" method="post" enctype="multipart/form-data" action="">:
+    <form class="form-horizontal" id="form-input" role="form" method="post" enctype="multipart/form-data" action="">
 	<div class="form-group">
 	<div class="col-sm-12">
    			<label for="title">Naslov vprašanja <i>(slovenščina):</i></label>
@@ -129,7 +126,7 @@ $credentials = $_SESSION['credentials'];
   		<input type="text" class="form-control" id="quesion" name="question"  value="" required>
    		</div>
 
-	</div> 
+	</div>
 	<br>
 	<div class="form-group" >
   <div class="col-sm-12">

@@ -2,17 +2,17 @@
   include("config.php");
   session_start();
   $_SESSION['verified'] = 1;
-    
+
   $message = "";
   $username = $_SESSION['username'];
   $user = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM users WHERE (email='$username' or username='$username')"));
   $name = $user['name'];
-  $surname = $user['surname'];	
+  $surname = $user['surname'];
   $permission_level = $user['permission_level'];
   $credentials = "$name $surname";
   $_SESSION['credentials'] = $credentials;
   $_SESSION['ID'] = $user['ID'];
- 
+
 
 ?>
 <html>
@@ -33,7 +33,7 @@
     		  xhttp.onreadystatechange = function() {
         	if (xhttp.readyState == 4 && xhttp.status == 200) {
             document.getElementById("contents").innerHTML=this.responseText;
-            
+
         	}
      		};
       	xhttp.open("GET", "checkbox.php", true);
@@ -57,7 +57,7 @@
     	}
 	</script>
 	<script >
-		$(document).ready(function(){ 
+		$(document).ready(function(){
 
     	$('.link').click(function(){
     		var data_id = $(this).data('id');
@@ -86,14 +86,14 @@
 		<nav class="navbar sticky-topa navbar-inverse">
 			<div class="container-fluid">
 				<ul class="nav fixed-top navbar-nav navbar-right">
-					
+
 					<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b><span class="glyphicon glyphicon-user"></span> <?php echo $credentials; ?></b> <span class="caret"></span></a>
 			<ul id="login-dp" class="dropdown-menu">
 				<li>
 					 <div class="row">
 							<div class="col-md-12">
-											<?php 
+											<?php
 												if ($permission_level == 2) {
 													$temp = "window.location.href='admin.php'";
 													echo '<button onclick="'.$temp.'" type="submit" name="submit" class="btn btn-success btn-block">Administrator</button>';
@@ -102,9 +102,9 @@
 											<button onclick="window.location.href='new_question.php'" type="submit" name="submit" class="btn btn-success btn-block">Dodaj vprašanje</button>
 											 <button onclick="window.location.href='index.php'" type="submit" name="submit" class="btn btn-danger btn-block">Odjava</button>
 											 <br>
-										
-										
-								 
+
+
+
 							</div>
 					 </div>
 				</li>
@@ -126,14 +126,14 @@
 			<h2>Kazalo</h2>
 			<ul>
 				<div class="contents" id="contents">
-					<?php 
-						
+					<?php
+
 
 						$command = "";
 						$sql = mysqli_query($db, "SELECT DISTINCT tag FROM data_csharp WHERE verified = 1");
 
 						$tags = array();
-						
+
 						while($row = mysqli_fetch_assoc($sql)){
 							$field = str_replace(", ", ",", $row['tag']);
 
@@ -144,10 +144,10 @@
 						//print_r($tags);
 						$tags = array_unique($tags);
 						//print_r($tags);
-						
-					
+
+
 								foreach ($tags as $tag) {
-												
+
 											$id = str_replace(" ", "", $tag);
 
 											$tempCommand = '<li data-target="#'.$id.'" data-toggle="collapse"><div class="dropdown" >
@@ -157,16 +157,16 @@
 					<div class="collapse" id="'.$id.'">
 						<div class="verticalLine">
 							<ul>
-							
+
 							<div class="listItem">';
-										
-										$lowercase = strtolower($tag);	
+
+										$lowercase = strtolower($tag);
 										if(!strcmp($tag, "Nepreverjene objave")){
 											$sql = mysqli_query($db, "SELECT * FROM data_csharp WHERE verified = 0");
 										}
 										else{
 											$sql = mysqli_query($db, "SELECT * FROM data_csharp WHERE tag LIKE '%{$tag}%' AND verified = 1");
-										}	
+										}
 
 										while($row = mysqli_fetch_assoc($sql)){
 											$title = $row["question"];
@@ -180,22 +180,22 @@
 					</div>
 				</li>';
 
-		
-							
+
+
 											$command = $command.''.$tempCommand;
 										}
 
 										echo $command;
 
 					?>
-				</div>	
+				</div>
 			</ul>
 		</div>
 		<div class="col-md-8" style="border-left:1px solid #38546d; ">
 			<div id="display"></div>
 		</div>
 		</div>
-		
+
 	</div><!-- Content will go here -->
 </body>
 </html>

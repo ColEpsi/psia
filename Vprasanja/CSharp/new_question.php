@@ -43,7 +43,6 @@ if (isset($_POST['submit'])) {
 
 
     $userID = $_SESSION['ID'];
-    echo "$userID";
     $sql = "INSERT INTO data_csharp (contributor_ID, question, answer, tag, upload_ID) VALUES ('$userID', '$mytitle', '$return_string','$mykeywords', '$upload_ID')";
 
     mysqli_query($db, $sql) or die(mysqli_error($db));
