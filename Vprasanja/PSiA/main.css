@@ -22,7 +22,7 @@ ul {
 h4 {
 	font-style: italic;
 }
-hr { 
+hr {
     display: block;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
@@ -37,7 +37,7 @@ button:hover {
 }
 .dropdown:hover{
   color: red;
-  cursor: hand;
+  cursor: pointer;
 }
 #login-dp{
     min-width: 250px;
@@ -46,7 +46,7 @@ button:hover {
     background-color:rgba(255,255,255,.8);
 }
 #login-dp .help-block{
-    font-size:12px    
+    font-size:12px
 }
 #login-dp .bottom{
     background-color:rgba(255,255,255,.8);
@@ -67,5 +67,3 @@ button:hover {
         border-top:0 none;
     }
 }
-
-
