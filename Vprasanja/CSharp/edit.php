@@ -72,7 +72,7 @@ $credentials = $_SESSION['credentials'];
 			</div>
 		</nav>
 		<div class="container-fluid" style="background-color: white;">
-			<h1>Vprašanja in odgovori iz Podatkovnih struktur in algoritmov</h1>
+			<h1>Vprašanja in odgovori iz programskega jezika C#</h1>
 		<h4>Fakulteta za matematiko in fiziko, Univerza v Ljubljani</h4>
 		<hr>
 				<div class="container-fluid" style="background-color: white">
