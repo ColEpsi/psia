@@ -43,6 +43,8 @@ $credentials = $_SESSION['credentials'];
 
 		<script type="text/javascript" src="tinymce/tinymce.min.js"></script>
 		<script type="text/javascript" src="tinymce/init-tinymce.js"></script>
+    <script src="../ckeditor/ckeditor.js"></script>
+    <script src="../ckfinder/ckfinder.js"></script>
 	<link href="main.css" rel="stylesheet" type="text/css">
 	<title>Podatkovne strukture in algoritmi</title>
 </head>
@@ -84,7 +86,7 @@ $credentials = $_SESSION['credentials'];
       <?php echo $message; ?>
     </div>
     <br>
-    <form class="form-horizontal" id="form-input" role="form" method="post" enctype="multipart/form-data" action="">  
+    <form class="form-horizontal" id="form-input" role="form" method="post" enctype="multipart/form-data" action="">
       <div class="form-group">
    		<div class="col-sm-12">
    			<label for="question">Vprašanje:</label>
@@ -94,11 +96,15 @@ $credentials = $_SESSION['credentials'];
 	</div>
    	<div class="form-group">
    		<div class="col-sm-12">
-  		<textarea class="form-control tinymce" rows="5" id="answer" name="answer">
+  		<textarea class="form-control" rows="5" id="answer" name="answer">
           <?php
         echo "<p>".$content['answer']."</p>";
           ?>
         </textarea>
+        <script type="text/javascript">
+          var editor = CKEDITOR.replace( 'answer' );
+          CKFinder.setupCKEditor( editor );
+        </script>
    		</div>
 
 	</div>
