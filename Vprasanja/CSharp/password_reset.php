@@ -1,6 +1,7 @@
 <?php
    include("config.php");
-   session_start();
+session_start();
+print phpinfo();
 
    $message = "";
    if(isset($_POST['submit'])) {
