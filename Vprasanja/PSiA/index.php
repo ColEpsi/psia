@@ -102,6 +102,7 @@ function dropdown(){
 	<div class="container">
 		<nav class="navbar sticky-topa navbar-inverse">
 			<div class="container-fluid">
+        <a class="navbar-brand" href="../CSharp/index.php">Programski jezik C#</a>
 				<ul class="nav fixed-top navbar-nav navbar-right">
 					<li>
 						<a href="register.php"><span class="glyphicon glyphicon-user"></span> Registracija</a>

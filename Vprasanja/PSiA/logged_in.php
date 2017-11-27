@@ -85,6 +85,7 @@
 	<div class="container">
 		<nav class="navbar sticky-topa navbar-inverse">
 			<div class="container-fluid">
+        <a class="navbar-brand" href="new_question.php">Dodaj vprašanje</a>
 				<ul class="nav fixed-top navbar-nav navbar-right">
 
 					<li class="dropdown">

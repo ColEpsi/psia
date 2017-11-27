@@ -9,6 +9,7 @@ if (isset($_POST['submit'])) {
     $mykeywords = mysqli_real_escape_string($db, $_POST['keywords']);
     $mysources = mysqli_real_escape_string($db, $_POST['sources']);
     $mycomment = mysqli_real_escape_string($db, $_POST['comment']);
+    $mykeywords = ucwords(strtolower($mykeywords), " ,");
 
     $return_string = '<h4><strong>Vprašanje:</strong></h4><p>'.$myquestion.'</p><h4><strong>Ključne besede:</strong> <span style="font-size: 14px;">'.$mykeywords.'</span></h4><h4><strong>Vir:&nbsp;</strong><a style="font-size: 14px;" target="_blank" href="'.$mysources.'">'.$mysources.'</a></h4><h4><strong>Odgovor:</strong></h4><p>'.$myanswer.'</p><h4><strong>Dodatne opombe:</strong></h4><p>'.$mycomment.'</p>';
 

@@ -9,6 +9,8 @@ if (isset($_POST['submit'])) {
     $mykeywords = mysqli_real_escape_string($db, $_POST['keywords']);
     $mysources = mysqli_real_escape_string($db, $_POST['sources']);
     $mycomment = mysqli_real_escape_string($db, $_POST['comment']);
+    $mykeywords = ucwords(strtolower($mykeywords), " ,");
+
 
     $return_string = '<h4><strong>Vprašanje:</strong></h4><p>'.$myquestion.'</p><h4><strong>Ključne besede:</strong> <span style="font-size: 14px;">'.$mykeywords.'</span></h4><h4><strong>Vir:&nbsp;</strong><a style="font-size: 14px;" target="_blank" href="'.$mysources.'">'.$mysources.'</a></h4><h4><strong>Odgovor:</strong></h4><p>'.$myanswer.'</p><h4><strong>Dodatne opombe:</strong></h4><p>'.$mycomment.'</p>';
 
@@ -132,7 +134,7 @@ $credentials = $_SESSION['credentials'];
 	<br>
 	<div class="form-group" >
   <div class="col-sm-12">
-        <label for="question">Ključne besede <i>(z veliko začetnico in ločene z vejicami):</i></label>
+        <label for="question">Ključne besede <i>(ločene z vejicami):</i></label>
       <input type="text" class="form-control" id="keywords" name="keywords"  value="" required>
       </div>
   </div>
