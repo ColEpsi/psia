@@ -5,9 +5,9 @@ session_start();
 $id = $_SESSION['session_id'];
 
 $content = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM data_csharp WHERE ID='$id'"));
+
 //echo "<script>console.log(".$id.");</script>";
 if (isset($_POST['submit'])) {
-    echo "<script>console.log(".$id.");</script>";
     $myquestion = mysqli_real_escape_string($db, $_POST['question']);
     $myanswer   = mysqli_real_escape_string($db, $_POST['answer']);
     $mykeywords = mysqli_real_escape_string($db, $_POST['keywords']);
@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
     }
     $sql = "UPDATE data_csharp SET question='$myquestion', answer='$myanswer', verified='$verified', tag='$mykeywords' WHERE ID='$id'";
     mysqli_query($db, $sql) or die(mysqli_error($db));
-    header("location:admin.php");
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 
 }
 
@@ -95,11 +95,7 @@ $credentials = $_SESSION['credentials'];
 	</div>
    	<div class="form-group">
    		<div class="col-sm-12">
-  		<textarea class="form-control" rows="5" id="answer" name="answer">
-          <?php
-        echo "<p>".$content['answer']."</p>";
-          ?>
-        </textarea>
+        <textarea class="form-control" rows="5" id="answer" name="answer"><?php echo $content['answer'];?></textarea>
         <script type="text/javascript">
           var editor = CKEDITOR.replace( 'answer' );
           CKFinder.setupCKEditor( editor );
@@ -115,7 +111,7 @@ $credentials = $_SESSION['credentials'];
       </div>
 </div>
     <label class="custom-control custom-checkbox">
-  <input type="checkbox" name="verified" id="verified" class="custom-control-input">
+  <input type="checkbox" name="verified" id="verified" class="custom-control-input" checked>
   <span class="custom-control-indicator"></span>
   <span class="custom-control-description">Označi objavo kot preverjeno</span>
 </label>

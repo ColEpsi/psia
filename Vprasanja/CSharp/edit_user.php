@@ -5,8 +5,7 @@ session_start();
 $id = $_SESSION['session_id'];
 
 $content = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM data_csharp WHERE ID='$id'"));
-//echo "<script>console.log(".$id.");</script>";
-echo "<script>console.log(".$id.");</script>";
+
 if (isset($_POST['submit'])) {
     echo "<script>console.log(".$id.");</script>";
     $myquestion = mysqli_real_escape_string($db, $_POST['question']);
@@ -93,10 +92,7 @@ $credentials = $_SESSION['credentials'];
 	</div>
    	<div class="form-group">
    		<div class="col-sm-12">
-  		<textarea class="form-control" rows="5" id="answer" name="answer">
-          <?php
-        echo "<p>".$content['answer']."</p>";
-          ?>
+        <textarea class="form-control" rows="5" id="answer" name="answer"><?php echo $content['answer'];?></textarea>
         </textarea>
         <script type="text/javascript">
           var editor = CKEDITOR.replace( 'answer' );

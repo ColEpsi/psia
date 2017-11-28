@@ -45,7 +45,7 @@
         ('$myname', '$mysurname', '$myemail','$myusername','$mypassword')";
 
         if ($db->query($sql) === TRUE) {
-          header("location: index.php");
+          header("location: register_success.php");
         } else {
           $message = "Error: " . $sql . "<br>" . $db->error;
         }

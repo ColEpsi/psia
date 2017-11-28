@@ -93,10 +93,7 @@ $credentials = $_SESSION['credentials'];
 	</div>
    	<div class="form-group">
    		<div class="col-sm-12">
-  		<textarea class="form-control" rows="5" id="answer" name="answer">
-          <?php
-        echo "<p>".$content['answer']."</p>";
-          ?>
+        <textarea class="form-control" rows="5" id="answer" name="answer"><?php echo $content['answer'];?></textarea>
         </textarea>
         <script type="text/javascript">
           var editor = CKEDITOR.replace( 'answer' );
