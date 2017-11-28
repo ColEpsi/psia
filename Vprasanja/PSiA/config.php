@@ -1,6 +1,6 @@
 <?php
 
-   define('DB_SERVER', 'localhost');
+   define('DB_SERVER', '127.0.0.1');
    define('DB_USERNAME', 'vprasanja');
    define('DB_PASSWORD', 'vprasanja');
    define('DB_DATABASE', 'vprasanja_psia');
