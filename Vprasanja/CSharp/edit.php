@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
     }
     $sql = "UPDATE data_csharp SET question='$myquestion', answer='$myanswer', verified='$verified', tag='$mykeywords' WHERE ID='$id'";
     mysqli_query($db, $sql) or die(mysqli_error($db));
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    header("location:admin.php");
 
 }
 

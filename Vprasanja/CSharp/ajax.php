@@ -35,7 +35,7 @@ if($file_size > 0){
 	$file = '<a href="download.php?id='.$upload_ID.'>">'.$sql['name'].'</a>';
 }
 $location_user = "'edit_user.php'";
-$location_admin = "'edit.php'";
+$location_admin = "'edit_admin.php'";
 
 if($active_name == $name && $active_surname == $surname && $active_admin == 2){
 	$response = '<button type="button" class="pull-right btn btn-warning" target="_blank" onclick="window.location.href='.$location_admin.'">Uredi objavo</button><h3><strong>'.$question.'</strong></h3><p>'.$answer.'</p>'.$file.'<p class="pull-right"><br><i>Prenesel uporabnik: <strong>'.$name.' '.$surname.'</strong></i><br></p>';

@@ -4,11 +4,10 @@ session_start();
 
 $id = $_SESSION['session_id'];
 
-$content = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM data WHERE ID='$id'"));
+$content = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM data_csharp WHERE ID='$id'"));
+
 //echo "<script>console.log(".$id.");</script>";
-echo "<script>console.log(".$id.");</script>";
 if (isset($_POST['submit'])) {
-    echo "<script>console.log(".$id.");</script>";
     $myquestion = mysqli_real_escape_string($db, $_POST['question']);
     $myanswer   = mysqli_real_escape_string($db, $_POST['answer']);
     $mykeywords = mysqli_real_escape_string($db, $_POST['keywords']);
@@ -16,9 +15,9 @@ if (isset($_POST['submit'])) {
     if (isset($_POST['verified'])) {
         $verified = 1;
     }
-    $sql = "UPDATE data SET question='$myquestion', answer='$myanswer', verified='$verified', tag='$mykeywords' WHERE ID='$id'";
+    $sql = "UPDATE data_csharp SET question='$myquestion', answer='$myanswer', verified='$verified', tag='$mykeywords' WHERE ID='$id'";
     mysqli_query($db, $sql) or die(mysqli_error($db));
-    header("location:admin.php");
+    header("location:logged_in.php");
 
 }
 
@@ -46,7 +45,7 @@ $credentials = $_SESSION['credentials'];
     <script src="../ckeditor/ckeditor.js"></script>
     <script src="../ckfinder/ckfinder.js"></script>
 	<link href="main.css" rel="stylesheet" type="text/css">
-	<title>Podatkovne strukture in algoritmi</title>
+	<title>Programski jezik C#</title>
 </head>
 <body>
 	<div class="container">
@@ -75,7 +74,7 @@ $credentials = $_SESSION['credentials'];
 			</div>
 		</nav>
 		<div class="container-fluid" style="background-color: white;">
-			<h1>Vprašanja in odgovori iz Podatkovnih struktur in algoritmov</h1>
+			<h1>Vprašanja in odgovori iz programskega jezika C#</h1>
 		<h4>Fakulteta za matematiko in fiziko, Univerza v Ljubljani</h4>
 		<hr>
 				<div class="container-fluid" style="background-color: white">
@@ -96,7 +95,7 @@ $credentials = $_SESSION['credentials'];
 	</div>
    	<div class="form-group">
    		<div class="col-sm-12">
-  		<textarea class="form-control" rows="5" id="answer" name="answer"><?php echo $content['answer'];?></textarea>
+        <textarea class="form-control" rows="5" id="answer" name="answer"><?php echo $content['answer'];?></textarea>
         <script type="text/javascript">
           var editor = CKEDITOR.replace( 'answer' );
           CKFinder.setupCKEditor( editor );

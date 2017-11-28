@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
     }
     $sql = "UPDATE data SET question='$myquestion', answer='$myanswer', verified='$verified', tag='$mykeywords' WHERE ID='$id'";
     mysqli_query($db, $sql) or die(mysqli_error($db));
-    header("location:admin.php");
+    header("location:logged_in.php");
 
 }
 
