@@ -6,17 +6,51 @@ $id = $_SESSION['session_id'];
 
 $content = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM data WHERE ID='$id'"));
 //echo "<script>console.log(".$id.");</script>";
-echo "<script>console.log(".$id.");</script>";
+echo "<script>console.log(".$content['upload_ID'].");</script>";
 if (isset($_POST['submit'])) {
     echo "<script>console.log(".$id.");</script>";
     $myquestion = mysqli_real_escape_string($db, $_POST['question']);
     $myanswer   = mysqli_real_escape_string($db, $_POST['answer']);
     $mykeywords = mysqli_real_escape_string($db, $_POST['keywords']);
+    $mykeywords = ucwords(strtolower($mykeywords), " ,");
     $verified = 0;
     if (isset($_POST['verified'])) {
         $verified = 1;
     }
-    $sql = "UPDATE data SET question='$myquestion', answer='$myanswer', verified='$verified', tag='$mykeywords' WHERE ID='$id'";
+
+    $upload_ID  = $content['upload_ID'];
+    if (isset($_FILES['userfile']) ) {
+        $fileName = $_FILES['userfile']['name'];
+        $tmpName  = $_FILES['userfile']['tmp_name'];
+        $fileSize = $_FILES['userfile']['size'];
+        $fileType = $_FILES['userfile']['type'];
+
+        $fp      = fopen($tmpName, 'r');
+        $data = fread($fp, filesize($tmpName));
+        $data = addslashes($data);
+        fclose($fp);
+
+        if (!get_magic_quotes_gpc()) {
+            $fileName = addslashes($fileName);
+        }
+        if ($upload_ID == 35) {
+          $query = "INSERT INTO upload (name, size, type, content )
+          VALUES ('$fileName', '$fileSize', '$fileType', '$data')";
+
+          mysqli_query($db, $query);
+
+          $upload_ID = mysqli_fetch_assoc(mysqli_query($db, "SELECT id FROM upload WHERE name='$fileName'"));
+          $upload_ID = $upload_ID['id'];
+        } else {
+          $query = "UPDATE upload SET name='$filename', size='$fileSize', type='$fileType', content='$data' WHERE id='$upload_ID'";
+
+          mysqli_query($db, $query);
+        }
+
+
+    }
+
+    $sql = "UPDATE data SET question='$myquestion', answer='$myanswer', verified='$verified', tag='$mykeywords', upload_ID='$upload_ID' WHERE ID='$id'";
     mysqli_query($db, $sql) or die(mysqli_error($db));
     header("location:logged_in.php");
 
@@ -110,6 +144,12 @@ $credentials = $_SESSION['credentials'];
       <label for="question">Ključne besede:</label>
       <input type="text" class="form-control" id="keywords" name="keywords"  value="<?php echo $content['tag']; ?>">
       </div>
+</div>
+<div  class="form-group">
+<div class="col-sm-12">
+<br>
+<input id="userfile" type="file" class="file" name="userfile">
+</div>
 </div>
     <label class="custom-control custom-checkbox">
   <input type="checkbox" name="verified" id="verified" class="custom-control-input" checked>

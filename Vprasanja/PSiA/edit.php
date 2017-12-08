@@ -12,6 +12,7 @@ if (isset($_POST['submit'])) {
     $myquestion = mysqli_real_escape_string($db, $_POST['question']);
     $myanswer   = mysqli_real_escape_string($db, $_POST['answer']);
     $mykeywords = mysqli_real_escape_string($db, $_POST['keywords']);
+    $mykeywords = ucwords(strtolower($mykeywords), " ,");
     $verified = 0;
     if (isset($_POST['verified'])) {
         $verified = 1;

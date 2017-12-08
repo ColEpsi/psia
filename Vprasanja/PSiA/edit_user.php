@@ -12,6 +12,7 @@ if (isset($_POST['submit'])) {
     $myquestion = mysqli_real_escape_string($db, $_POST['question']);
     $myanswer   = mysqli_real_escape_string($db, $_POST['answer']);
     $mykeywords = mysqli_real_escape_string($db, $_POST['keywords']);
+    $mykeywords = ucwords(strtolower($mykeywords), " ,");
 
     $sql = "UPDATE data SET question='$myquestion', answer='$myanswer', verified='0', tag='$mykeywords' WHERE ID='$id'";
     mysqli_query($db, $sql) or die(mysqli_error($db));
