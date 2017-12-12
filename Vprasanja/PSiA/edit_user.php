@@ -14,7 +14,32 @@ if (isset($_POST['submit'])) {
     $mykeywords = mysqli_real_escape_string($db, $_POST['keywords']);
     $mykeywords = ucwords(strtolower($mykeywords), " ,");
 
-    $sql = "UPDATE data SET question='$myquestion', answer='$myanswer', verified='0', tag='$mykeywords' WHERE ID='$id'";
+    $upload_ID  = $content['upload_ID'];
+    if (isset($_FILES['userfile'])  && $_FILES["userfile"]["size"] > 0 ) {
+        $fileName = $_FILES['userfile']['name'];
+        $tmpName  = $_FILES['userfile']['tmp_name'];
+        $fileSize = $_FILES['userfile']['size'];
+        $fileType = $_FILES['userfile']['type'];
+        echo "<script>alert(".$fileName.")</script>";
+        $fp      = fopen($tmpName, 'r');
+        $data = fread($fp, filesize($tmpName));
+        $data = addslashes($data);
+        fclose($fp);
+
+        if (!get_magic_quotes_gpc()) {
+            $fileName = addslashes($fileName);
+        }
+
+        $query = "INSERT INTO upload (name, size, type, content )
+        VALUES ('$fileName', '$fileSize', '$fileType', '$data')";
+
+        mysqli_query($db, $query);
+
+        $upload_ID = mysqli_fetch_assoc(mysqli_query($db, "SELECT id FROM upload WHERE name='$fileName'"));
+        $upload_ID = $upload_ID['id'];
+    }
+
+    $sql = "UPDATE data SET question='$myquestion', answer='$myanswer', verified='0', tag='$mykeywords', upload_ID='$upload_ID' WHERE ID='$id'";
     mysqli_query($db, $sql) or die(mysqli_error($db));
     header("location:logged_in.php");
 
@@ -109,6 +134,12 @@ $credentials = $_SESSION['credentials'];
         <label for="question">Ključne besede:</label>
       <input type="text" class="form-control" id="keywords" name="keywords"  value="<?php echo $content['tag']; ?>">
       </div>
+</div>
+<div  class="form-group">
+<div class="col-sm-12">
+<br>
+<input id="userfile" type="file" class="file" name="userfile">
+</div>
 </div>
       <div style="text-align:center; " class="button">
         <button class="btn btn-primary btn-lg" type="submit" name="submit">Posodobi</button>

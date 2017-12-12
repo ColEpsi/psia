@@ -14,9 +14,9 @@ if (isset($_POST['submit'])) {
     $return_string = '<h4><strong>Vprašanje:</strong></h4><p>'.$myquestion.'</p><h4><strong>Ključne besede:</strong> <span style="font-size: 14px;">'.$mykeywords.'</span></h4><h4><strong>Vir:&nbsp;</strong><a style="font-size: 14px;" target="_blank" href="'.$mysources.'">'.$mysources.'</a></h4><h4><strong>Odgovor:</strong></h4><p>'.$myanswer.'</p><h4><strong>Dodatne opombe:</strong></h4><p>'.$mycomment.'</p>';
 
 
-    $upload_ID  = "";
+    $upload_ID  = "0";
 
-    if (isset($_FILES['userfile']) ) {
+    if (isset($_FILES['userfile']) && $_FILES["userfile"]["size"] > 0 ) {
         $fileName = $_FILES['userfile']['name'];
         $tmpName  = $_FILES['userfile']['tmp_name'];
         $fileSize = $_FILES['userfile']['size'];

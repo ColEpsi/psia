@@ -19,12 +19,12 @@ if (isset($_POST['submit'])) {
     }
 
     $upload_ID  = $content['upload_ID'];
-    if (isset($_FILES['userfile']) ) {
+    if (isset($_FILES['userfile'])  && $_FILES["userfile"]["size"] > 0 ) {
         $fileName = $_FILES['userfile']['name'];
         $tmpName  = $_FILES['userfile']['tmp_name'];
         $fileSize = $_FILES['userfile']['size'];
         $fileType = $_FILES['userfile']['type'];
-
+        echo "<script>alert(".$fileName.")</script>";
         $fp      = fopen($tmpName, 'r');
         $data = fread($fp, filesize($tmpName));
         $data = addslashes($data);
@@ -33,21 +33,14 @@ if (isset($_POST['submit'])) {
         if (!get_magic_quotes_gpc()) {
             $fileName = addslashes($fileName);
         }
-        if ($upload_ID == 35) {
-          $query = "INSERT INTO upload (name, size, type, content )
-          VALUES ('$fileName', '$fileSize', '$fileType', '$data')";
 
-          mysqli_query($db, $query);
+        $query = "INSERT INTO upload (name, size, type, content )
+        VALUES ('$fileName', '$fileSize', '$fileType', '$data')";
 
-          $upload_ID = mysqli_fetch_assoc(mysqli_query($db, "SELECT id FROM upload WHERE name='$fileName'"));
-          $upload_ID = $upload_ID['id'];
-        } else {
-          $query = "UPDATE upload SET name='$filename', size='$fileSize', type='$fileType', content='$data' WHERE id='$upload_ID'";
+        mysqli_query($db, $query);
 
-          mysqli_query($db, $query);
-        }
-
-
+        $upload_ID = mysqli_fetch_assoc(mysqli_query($db, "SELECT id FROM upload WHERE name='$fileName'"));
+        $upload_ID = $upload_ID['id'];
     }
 
     $sql = "UPDATE data SET question='$myquestion', answer='$myanswer', verified='$verified', tag='$mykeywords', upload_ID='$upload_ID' WHERE ID='$id'";
