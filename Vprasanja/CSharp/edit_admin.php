@@ -135,6 +135,12 @@ $credentials = $_SESSION['credentials'];
       <input type="text" class="form-control" id="keywords" name="keywords"  value="<?php echo $content['tag']; ?>">
       </div>
 </div>
+<div  class="form-group">
+<div class="col-sm-12">
+<br>
+<input id="userfile" type="file" class="file" name="userfile">
+</div>
+</div>
     <label class="custom-control custom-checkbox">
   <input type="checkbox" name="verified" id="verified" class="custom-control-input" checked>
   <span class="custom-control-indicator"></span>
