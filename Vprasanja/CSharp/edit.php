@@ -92,7 +92,7 @@ $credentials = $_SESSION['credentials'];
 				<li>
 					 <div class="row">
 							<div class="col-md-12">
-											 <button onclick="window.location.href='logged_in.php'" type="submit" name="submit" class="btn btn-danger btn-block">Odjava</button>
+											 <button onclick="window.location.href='logout.php'" type="submit" name="submit" class="btn btn-danger btn-block">Odjava</button>
 												<br>
 
 
