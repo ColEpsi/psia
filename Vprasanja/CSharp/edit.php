@@ -1,6 +1,14 @@
 <?php
 include("config.php");
 session_start();
+if (!isset($_SESSION['logged_on'])) {
+  header("location: index.php");
+  die();
+}
+if (!isset($_SESSION['logged_admin'])) {
+  header("location: logged_in.php");
+  die();
+}
 
 $id = $_SESSION['session_id'];
 
