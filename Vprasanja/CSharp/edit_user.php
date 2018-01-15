@@ -140,7 +140,7 @@ $credentials = $_SESSION['credentials'];
 </div>
       <div style="text-align:center; " class="button">
         <button class="btn btn-primary btn-lg" type="submit" name="submit">Posodobi</button>
-        <button type="button" class="btn btn-lg btn-danger" onclick="window.location.href='delete.php'">Izbriši objavo</button>
+        <button type="button" class="btn btn-lg btn-danger" onclick="window.location.href='delete_user.php'">Izbriši objavo</button>
       </div>
     </form>
 

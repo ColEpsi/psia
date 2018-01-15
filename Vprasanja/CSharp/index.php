@@ -148,11 +148,6 @@ function dropdown(){
 		<h4>Fakulteta za matematiko in fiziko, Univerza v Ljubljani</h4>
 		<hr>
 		<div class="col-md-4">
-			<!--
-			<div class="checkbox">
-  				<label><input type="checkbox" name="verification" value="unverified" onchange="checkbox()">Pokaži nepreverjene objave</label>
-			</div>
-			-->
 			<h2>Kazalo</h2>
 			<ul>
 				<div class="contents" id="contents">
