@@ -80,13 +80,14 @@ $credentials = $_SESSION['credentials'];
     <script src="../ckeditor/ckeditor.js"></script>
     <script src="../ckfinder/ckfinder.js"></script>
     <script type="text/javascript">
+    function refreshSession(){
       setInterval(function(){$_post('refresh_session.php');}, 600000);
-
+    }
     </script>
 	<link href="main.css" rel="stylesheet" type="text/css">
 	<title>Podatkovne strukture in algoritmi</title>
 </head>
-<body>
+<body onload="refreshSession()">
 	<div class="container">
 		<nav class="navbar sticky-topa navbar-inverse">
 			<div class="container-fluid">

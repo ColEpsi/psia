@@ -2,6 +2,10 @@
   include("config.php");
   session_start();
   $_SESSION['verified'] = 1;
+  if (!isset($_SESSION['logged_on'])) {
+    header("location: index.php");
+    die();
+  }
 
   $message = "";
   $username = $_SESSION['username'];
