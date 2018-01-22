@@ -20,6 +20,7 @@
         $count = mysqli_num_rows($result);
         $_SESSION['password'] = $mypassword;
         if($count == 1) {
+          $_SESSION['logged_on'] = true;
           header("location: logged_in.php");
         }
         else {

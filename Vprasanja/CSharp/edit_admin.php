@@ -1,6 +1,10 @@
 <?php
 include("config.php");
 session_start();
+if (!isset($_SESSION['logged_on'])) {
+  header("location: index.php");
+  die();
+}
 
 $id = $_SESSION['session_id'];
 
@@ -86,7 +90,7 @@ $credentials = $_SESSION['credentials'];
 				<li>
 					 <div class="row">
 							<div class="col-md-12">
-											 <button onclick="window.location.href='logged_in.php'" type="submit" name="submit" class="btn btn-danger btn-block">Odjava</button>
+											 <button onclick="window.location.href='logout.php'" type="submit" name="submit" class="btn btn-danger btn-block">Odjava</button>
 												<br>
 
 
@@ -148,7 +152,7 @@ $credentials = $_SESSION['credentials'];
 </label>
       <div style="text-align:center; " class="button">
         <button class="btn btn-primary btn-lg" type="submit" name="submit">Posodobi</button>
-        <button type="button" class="btn btn-lg btn-danger" onclick="window.location.href='delete.php'">Izbriši objavo</button>
+        <button type="button" class="btn btn-lg btn-danger" onclick="window.location.href='delete_user.php'">Izbriši objavo</button>
       </div>
     </form>
 

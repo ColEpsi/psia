@@ -1,6 +1,14 @@
 <?php
 include("config.php");
 session_start();
+if (!isset($_SESSION['logged_on'])) {
+  header("location: index.php");
+  die();
+}
+if (!isset($_SESSION['logged_admin'])) {
+  header("location: logged_in.php");
+  die();
+}
 
 $id = $_SESSION['session_id'];
 
@@ -65,8 +73,6 @@ $credentials = $_SESSION['credentials'];
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css" />
 
-		<script type="text/javascript" src="tinymce/tinymce.min.js"></script>
-		<script type="text/javascript" src="tinymce/init-tinymce.js"></script>
     <script src="../ckeditor/ckeditor.js"></script>
     <script src="../ckfinder/ckfinder.js"></script>
 	<link href="main.css" rel="stylesheet" type="text/css">
@@ -86,7 +92,7 @@ $credentials = $_SESSION['credentials'];
 				<li>
 					 <div class="row">
 							<div class="col-md-12">
-											 <button onclick="window.location.href='logged_in.php'" type="submit" name="submit" class="btn btn-danger btn-block">Odjava</button>
+											 <button onclick="window.location.href='logout.php'" type="submit" name="submit" class="btn btn-danger btn-block">Odjava</button>
 												<br>
 
 
@@ -113,14 +119,14 @@ $credentials = $_SESSION['credentials'];
     <form class="form-horizontal" id="form-input" role="form" method="post" enctype="multipart/form-data" action="">
       <div class="form-group">
    		<div class="col-sm-12">
-   			<label for="question">Vprašanje:</label>
+   			<label for="question">Naslov vprašanja:</label>
   		<input type="text" class="form-control" id="quesion" name="question"  value="<?php echo $content['question']; ?>">
    		</div>
 
 	</div>
    	<div class="form-group">
    		<div class="col-sm-12">
-        <textarea class="form-control" rows="5" id="answer" name="answer"><?php echo $content['answer'];?></textarea>
+  		<textarea class="form-control" rows="5" id="answer" name="answer"><?php echo $content['answer'];?></textarea>
         <script type="text/javascript">
           var editor = CKEDITOR.replace( 'answer' );
           CKFinder.setupCKEditor( editor );

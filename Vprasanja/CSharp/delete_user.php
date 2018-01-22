@@ -8,5 +8,5 @@ if (!isset($_SESSION['logged_on'])) {
 $id = $_SESSION['session_id'];
 mysqli_query($db, "DELETE FROM data_csharp WHERE ID='$id'");
 
-header("location:admin.php");
+header("location:logged_in.php");
 ?>

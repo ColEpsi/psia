@@ -1,6 +1,14 @@
 <?php
   include("config.php");
   session_start();
+  if (!isset($_SESSION['logged_on'])) {
+    header("location: index.php");
+    die();
+  }
+  if (!isset($_SESSION['logged_admin'])) {
+    header("location: logged_in.php");
+    die();
+  }
   $_SESSION['verified'] = 1;
 /*
   if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,10 +18,10 @@
       $date = date("Y/m/d");
       $resultID = mysqli_fetch_assoc(mysqli_query($db, "SELECT ID FROM users WHERE username='$username'"));
       $ID = $resultID['ID'];
-      $insert = mysqli_query($db, "INSERT INTO health_data (date, height, weight, user_ID) VALUES ('$date', '$height', 
+      $insert = mysqli_query($db, "INSERT INTO health_data (date, height, weight, user_ID) VALUES ('$date', '$height',
         '$weight', '$ID')");
    }
-*/    
+*/
   $message = "";
   $username = $_SESSION['username'];
   $user = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM users WHERE (email='$username' or username = '$username')"));
@@ -21,14 +29,14 @@
   $surname = $user['surname'];
   $permission_level = $user['permission_level'];
   $credentials = "$name $surname";
-  
+
   $verified_html = "";
   $verified_query = mysqli_query($db, "SELECT * FROM data_csharp WHERE verified=0");
 
   while($row = mysqli_fetch_assoc($verified_query)){
       $contributor_ID = $row['contributor_ID'];
       $contributor = mysqli_fetch_assoc(mysqli_query($db, "SELECT name, surname FROM users WHERE ID='$contributor_ID'"));
-      $verified_html .= " 
+      $verified_html .= "
                 <tr class='clickable-row' data-id='".$row['ID']."'>
                 <td>".$contributor['name']." ".$contributor['surname']."</td>
                 <td>".$row['question']."</td>
@@ -63,7 +71,7 @@
 } );
 	</script>
 	<script >
-    $(document).ready(function(){ 
+    $(document).ready(function(){
         $('.clickable-row').click(function(){
     		var data_id = $(this).data('id');
             window.location = "session_create.php?session_name="+data_id;
@@ -71,8 +79,8 @@
     });
 	</script>
   <style>
-    
-  
+
+
   </style>
 	<link href="main.css" rel="stylesheet" type="text/css">
 	<title>Programski jezik C#</title>
@@ -83,18 +91,18 @@
             <a class="navbar-brand" href="logged_in.php">Nazaj</a>
 			<div class="container-fluid">
 				<ul class="nav fixed-top navbar-nav navbar-right">
-					
+
 					<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b><span class="glyphicon glyphicon-user"></span> <?php echo $credentials; ?></b> <span class="caret"></span></a>
 			<ul id="login-dp" class="dropdown-menu">
 				<li>
 					 <div class="row">
 							<div class="col-md-12">
-											 <button onclick="window.location.href='index.php'" type="submit" name="submit" class="btn btn-danger btn-block">Odjava</button>
+											 <button onclick="window.location.href='logout.php'" type="submit" name="submit" class="btn btn-danger btn-block">Odjava</button>
 											 <br>
-										
-										
-								 
+
+
+
 							</div>
 					 </div>
 				</li>
@@ -126,7 +134,7 @@
         </tbody>
     </table>
 		</div>
-		
+
 	</div><!-- Content will go here -->
 </body>
 </html>

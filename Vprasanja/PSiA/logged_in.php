@@ -96,12 +96,13 @@
 							<div class="col-md-12">
 											<?php
 												if ($permission_level == 2) {
+                          $_SESSION['logged_admin'] = true;
 													$temp = "window.location.href='admin.php'";
 													echo '<button onclick="'.$temp.'" type="submit" name="submit" class="btn btn-success btn-block">Administrator</button>';
 												}
 											?>
 											<button onclick="window.location.href='new_question.php'" type="submit" name="submit" class="btn btn-success btn-block">Dodaj vprašanje</button>
-											 <button onclick="window.location.href='index.php'" type="submit" name="submit" class="btn btn-danger btn-block">Odjava</button>
+											 <button onclick="window.location.href='logout.php'" type="submit" name="submit" class="btn btn-danger btn-block">Odjava</button>
 											 <br>
 
 
