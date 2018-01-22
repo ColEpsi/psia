@@ -75,6 +75,10 @@ $credentials = $_SESSION['credentials'];
 		<script type="text/javascript" src="tinymce/init-tinymce.js"></script>
     <script src="../ckeditor/ckeditor.js"></script>
     <script src="../ckfinder/ckfinder.js"></script>
+    <script type="text/javascript">
+      setInterval(function(){$_post('refresh_session.php');}, 600000);
+
+    </script>
 	<link href="main.css" rel="stylesheet" type="text/css">
 	<title>Podatkovne strukture in algoritmi</title>
 </head>
