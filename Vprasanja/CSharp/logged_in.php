@@ -142,7 +142,6 @@ if (!isset($_SESSION['logged_on'])) {
 						$tags = array();
 
 						while($row = mysqli_fetch_assoc($sql)){
-              var_dump($row['tag']);
 							$field = str_replace(", ", ",", $row['tag']);
 							$tag = explode(",", $field);
 							$tags = array_merge($tags, $tag);
