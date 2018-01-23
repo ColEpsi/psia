@@ -81,7 +81,7 @@ $credentials = $_SESSION['credentials'];
     <script src="../ckfinder/ckfinder.js"></script>
     <script type="text/javascript">
     function refreshSession(){
-      setInterval(function(){$_post('refresh_session.php');}, 600000);
+      setInterval(function(){$_post('session_refresh.php');}, 600000);
     }
     </script>
 	<link href="main.css" rel="stylesheet" type="text/css">
