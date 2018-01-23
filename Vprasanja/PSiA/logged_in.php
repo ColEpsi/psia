@@ -155,7 +155,7 @@
 								foreach ($tags as $tag) {
 
 											$id = str_replace(" ", "", $tag);
-
+                        $tag = ucfirst(strtolower($tag));
 											$tempCommand = '<li data-target="#'.$id.'" data-toggle="collapse"><div class="dropdown" >
 					<span class="glyphicon glyphicon-chevron-right"></span> <strong>'.$tag.'</strong>
 						</div>
@@ -166,7 +166,6 @@
 
 							<div class="listItem">';
 
-										$lowercase = strtolower($tag);
 										if(!strcmp($tag, "Nepreverjene objave")){
 											$sql = mysqli_query($db, "SELECT * FROM data WHERE verified = 0");
 										}
