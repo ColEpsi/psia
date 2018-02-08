@@ -3,7 +3,6 @@ include("config.php");
 session_start();
 
 $id = intval($_GET['q']);
-$_SESSION['session_id'] = $id;
 $query = "SELECT * FROM data WHERE ID = '$id'"; //expecting one row
 $result = mysqli_query($db, $query);
 $message = mysqli_fetch_assoc($result);
@@ -34,8 +33,10 @@ $file_size = $sql['size'];
 if($file_size > 0){
 	$file = '<a href="download.php?id='.$upload_ID.'>">'.$sql['name'].'</a>';
 }
-$location_user = "'edit_user.php'";
-$location_admin = "'edit_admin.php'";
+$locationuser = 'edit_user.php?id='.$id;
+$locationadmin = 'edit_admin.php?id='.$id;
+$location_user = "'".$locationuser."'";
+$location_admin = "'".$locationadmin."'";
 
 if($active_name == $name && $active_surname == $surname && $active_admin == 2){
 	$response = '<button type="button" class="pull-right btn btn-warning" target="_blank" onclick="window.location.href='.$location_admin.'">Uredi objavo</button><h3><strong>'.$question.'</strong></h3><p>'.$answer.'</p>'.$file.'<p class="pull-right"><br><i>Prenesel uporabnik: <strong>'.$name.' '.$surname.'</strong></i><br></p>';

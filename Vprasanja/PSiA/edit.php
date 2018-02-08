@@ -10,7 +10,9 @@ if (!isset($_SESSION['logged_admin'])) {
   die();
 }
 
-$id = $_SESSION['session_id'];
+$id = intval($_GET['id']);
+
+$delete_location = 'delete.php?id='.$id;
 
 $content = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM data WHERE ID='$id'"));
 //echo "<script>console.log(".$id.");</script>";
@@ -157,7 +159,7 @@ $credentials = $_SESSION['credentials'];
 </label>
       <div style="text-align:center; " class="button">
         <button class="btn btn-primary btn-lg" type="submit" name="submit">Posodobi</button>
-        <button type="button" class="btn btn-lg btn-danger" onclick="window.location.href='delete.php'">Izbriši objavo</button>
+        <button type="button" class="btn btn-lg btn-danger" onclick="window.location.href='<?php echo $delete_location; ?>'">Izbriši objavo</button>
       </div>
     </form>
 
