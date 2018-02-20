@@ -141,21 +141,23 @@
 						$tags = array();
 
 						while($row = mysqli_fetch_assoc($sql)){
-							$field = str_replace(", ", ",", $row['tag']);
+              $field = $row['tag'];
+              $field = str_replace("  ", " ", $field);
+							$field = str_replace(", ", ",", $field);
+              $field = str_replace(" ,", ",", $field);
 
 							$tag = explode(",", $field);
 							$tags = array_merge($tags, $tag);
 						}
 						array_push($tags, "Nepreverjene objave");
-						//print_r($tags);
+            $tags = array_map('strtolower', $tags);
 						$tags = array_unique($tags);
-						//print_r($tags);
 
 
 								foreach ($tags as $tag) {
 
 											$id = str_replace(" ", "", $tag);
-                        $tag = ucfirst(strtolower($tag));
+                      $tag = ucfirst($tag);
 											$tempCommand = '<li data-target="#'.$id.'" data-toggle="collapse"><div class="dropdown" >
 					<span class="glyphicon glyphicon-chevron-right"></span> <strong>'.$tag.'</strong>
 						</div>
@@ -165,12 +167,19 @@
 							<ul>
 
 							<div class="listItem">';
+                    $tag_comma_comma = '%, '.$tag.',%';
+                    $tag_space_comma = '% ,'.$tag.',%';
+                    $tag_comma_space =  '%, '.$tag.' %';
+                    $tag_space_space =  '% ,'.$tag.' %';
 
 										if(!strcmp($tag, "Nepreverjene objave")){
 											$sql = mysqli_query($db, "SELECT * FROM data WHERE verified = 0");
 										}
 										else{
-											$sql = mysqli_query($db, "SELECT * FROM data WHERE tag LIKE '%{$tag}%' AND verified = 1");
+											$sql = mysqli_query($db, "SELECT * FROM data WHERE (tag LIKE '{$tag}' OR tag LIKE '%, {$tag}' OR tag LIKE '% ,{$tag}'
+                        OR tag LIKE '{$tag}, %' OR tag LIKE '{$tag} ,%'
+                        OR tag LIKE '{$tag_comma_comma}' OR tag LIKE '{$tag_space_comma}' OR tag LIKE '{$tag_comma_space}'
+                        OR tag LIKE '{$tag_space_space}')  AND verified = 1");
 										}
 
 										while($row = mysqli_fetch_assoc($sql)){
