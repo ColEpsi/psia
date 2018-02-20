@@ -176,7 +176,7 @@ if (!isset($_SESSION['logged_on'])) {
 											$sql = mysqli_query($db, "SELECT * FROM data_csharp WHERE verified = 0");
 										}
 										else{
-                      $sql = mysqli_query($db, "SELECT * FROM data WHERE (tag LIKE '{$tag}' OR tag LIKE '%, {$tag}' OR tag LIKE '% ,{$tag}'
+                      $sql = mysqli_query($db, "SELECT * FROM data_csharp WHERE (tag LIKE '{$tag}' OR tag LIKE '%, {$tag}' OR tag LIKE '% ,{$tag}'
                         OR tag LIKE '{$tag}, %' OR tag LIKE '{$tag} ,%'
                         OR tag LIKE '{$tag_comma_comma}' OR tag LIKE '{$tag_space_comma}' OR tag LIKE '{$tag_comma_space}'
                         OR tag LIKE '{$tag_space_space}')  AND verified = 1");
