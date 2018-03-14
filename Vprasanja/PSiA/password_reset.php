@@ -35,7 +35,7 @@
       echo "Uspesno";
     }
     else{
-      echo "neuspesno";
+      echo error_get_last()['message'];
     }
 
         //header("location: reset_success.php");
@@ -68,7 +68,7 @@
 	<title>Podatkovne strukture in algoritmi</title>
 </head>
 <body>
-  
+
 	<div class="container">
 		<nav class="navbar fixed-top navbar-inverse">
 			<div class="container-fluid">
