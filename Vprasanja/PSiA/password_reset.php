@@ -25,20 +25,18 @@
 		$message = 'Pozdravljeni,<br>
 					      vaše pozabljeno geslo je <strong>'.$password.'</strong>. <br>
 					      Lep pozdrav';
-		$headers = "From: Matija.Lokar@fmf.uni-lj.si \r\n";
+		$headers = "From: gregor.jerse@fri.uni-lj.si \r\n";
     $headers .= "Reply-To: Matija.Lokar@fmf.uni-lj.si \r\n";
     $headers .= "Return-Path: Matija.Lokar@fmf.uni-lj.si \r\n";
     $headers .= "X-Mailer: PHP/". phpversion();
 
 
 		if(mail($to, $subject, $message, $headers)){
-      echo "Uspesno";
+      header("location: reset_success.php");
     }
     else{
-      var_dump(error_get_last()['message']);
+      $message_error = "Pošiljanje ni bilo uspešno!"
     }
-
-        //header("location: reset_success.php");
       }
      }
    }
