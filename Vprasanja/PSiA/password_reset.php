@@ -26,16 +26,16 @@
 					      vaše pozabljeno geslo je <strong>'.$password.'</strong>. <br>
 					      Lep pozdrav';
 		$headers = "From: Matija.Lokar@fmf.uni-lj.si \r\n";
-    $headers .= "Reply-To: ugi.vaupotic@gmail.com \r\n";
-    $headers .= "Return-Path: ugi.vaupotic@gmail.com \r\n";
-    $headers .= "X-Mailer: PHP \r\n";
+    $headers .= "Reply-To: Matija.Lokar@fmf.uni-lj.si \r\n";
+    $headers .= "Return-Path: Matija.Lokar@fmf.uni-lj.si \r\n";
+    $headers .= "X-Mailer: PHP/". phpversion();
 
 
 		if(mail($to, $subject, $message, $headers)){
       echo "Uspesno";
     }
     else{
-      print_r(error_get_last()['message']);
+      var_dump(error_get_last()['message']);
     }
 
         //header("location: reset_success.php");
@@ -68,7 +68,6 @@
 	<title>Podatkovne strukture in algoritmi</title>
 </head>
 <body>
-  <?php phpinfo();; ?>
 	<div class="container">
 		<nav class="navbar fixed-top navbar-inverse">
 			<div class="container-fluid">
