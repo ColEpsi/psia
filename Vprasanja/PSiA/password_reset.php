@@ -35,7 +35,7 @@
       header("location: reset_success.php");
     }
     else{
-      $message_error = "Pošiljanje ni bilo uspešno!"
+      $message_error = "Pošiljanje ni bilo uspešno!";
     }
       }
      }
