@@ -29,7 +29,7 @@
     			   'Reply-To: ugi.vaupotic@gmail.com' . "\r\n" .
     			   'X-Mailer: PHP/' . phpversion();
 
-		mail($to, $subject, $message, $headers);
+		@mail($to, $subject, $message, $headers);
 
         header("location: reset_success.php");
       }
