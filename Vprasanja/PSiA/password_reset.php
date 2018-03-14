@@ -2,29 +2,29 @@
    include("config.php");
    session_start();
 
-   $message = "";
+   $message_error = "";
    if(isset($_POST['submit'])) {
       $myemail = mysqli_real_escape_string($db,$_POST['email']);
 
      if(strlen($myemail) == 0){
-       $message = "Prosimo vnesite vaš email naslov!";
+       $message_error = "Prosimo vnesite vaš email naslov!";
      }
      else{
       $sql_email = "SELECT * FROM users WHERE email = '$myemail'";
       $result_email = mysqli_query($db, $sql_email);
 
       if(mysqli_num_rows($result_email) == 0){
-        $message = "Uporabnik s tem E-Mail naslovom ne obstaja!";
+        $message_error = "Uporabnik s tem E-Mail naslovom ne obstaja!";
       }
       else {
         $result_email = mysqli_fetch_assoc($result_email);
         $password = $result_email['password'];
 
-        $to      = 	$myemail;
+    $to      = 	$myemail;
 		$subject = 'Pozabljeno geslo';
 		$message = 'Pozdravljeni,<br>
-					vaše pozabljeno geslo je <strong>'.$password.'</strong>. <br>
-					Lep pozdrav';
+					      vaše pozabljeno geslo je <strong>'.$password.'</strong>. <br>
+					      Lep pozdrav';
 		$headers = "From: Matija.Lokar@fmf.uni-lj.si \r\n";
     $headers .= "Reply-To: ugi.vaupotic@gmail.com \r\n";
     $headers .= "Return-Path: ugi.vaupotic@gmail.com \r\n";
@@ -68,7 +68,7 @@
 	<title>Podatkovne strukture in algoritmi</title>
 </head>
 <body>
-
+  <?php phpinfo();; ?>
 	<div class="container">
 		<nav class="navbar fixed-top navbar-inverse">
 			<div class="container-fluid">
@@ -81,7 +81,7 @@
     <h2 style="text-align:center">Prosimo vnesite vaš email naslov:</h2>
     <br>
     <div style="text-align:center;color:red;font-style:oblique">
-      <?php echo $message; ?>
+      <?php echo $message_error; ?>
     </div>
     <br>
     <form class="form-horizontal" role="form" method="post" action="">
