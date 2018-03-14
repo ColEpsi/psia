@@ -68,7 +68,7 @@
 	<title>Podatkovne strukture in algoritmi</title>
 </head>
 <body>
-  <?php phpinfo(); ?>
+  
 	<div class="container">
 		<nav class="navbar fixed-top navbar-inverse">
 			<div class="container-fluid">
