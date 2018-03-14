@@ -35,7 +35,7 @@
       echo "Uspesno";
     }
     else{
-      echo error_get_last()['message'];
+      var_dump(error_get_last()['message']);
     }
 
         //header("location: reset_success.php");
