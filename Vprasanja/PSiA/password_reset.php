@@ -25,7 +25,7 @@
 		$message = 'Pozdravljeni,<br>
 					      vaše pozabljeno geslo je <strong>'.$password.'</strong>. <br>
 					      Lep pozdrav';
-		$headers = "From: gregor.jerse@fri.uni-lj.si \r\n";
+		$headers = "From: Matija.Lokar@fmf.uni-lj.si \r\n";
     $headers .= "Reply-To: Matija.Lokar@fmf.uni-lj.si \r\n";
     $headers .= "Return-Path: Matija.Lokar@fmf.uni-lj.si \r\n";
     $headers .= "X-Mailer: PHP/". phpversion();
