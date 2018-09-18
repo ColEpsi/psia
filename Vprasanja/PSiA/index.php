@@ -174,9 +174,13 @@ function dropdown(){
 
 							$tags = array_merge($tags, $tag);
 						}
+            print_r(array_values($tags));
 						array_push($tags, "Nepreverjene objave");
             $tags = array_map('strtolower', $tags);
+            print_r("---------------------");
+            print_r(array_values($tags));
             $tags = array_unique($tags);
+            print_r("---------------------");
             print_r(array_values($tags));
 
 
