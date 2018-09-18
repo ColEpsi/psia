@@ -152,6 +152,7 @@ if (!isset($_SESSION['logged_on'])) {
 						}
             array_push($tags, "Nepreverjene objave");
             $tags = array_map('strtolower', $tags);
+            $tags = array_map('trim', $tags);
             $tags = array_unique($tags);
 
 								foreach ($tags as $tag) {

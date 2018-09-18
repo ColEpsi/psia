@@ -179,7 +179,6 @@ function dropdown(){
             $tags = array_map('strtolower', $tags);
             $tags = array_map('trim', $tags);
             $tags = array_unique($tags);
-            var_dump($tags);
 
 
 								foreach ($tags as $tag) {
